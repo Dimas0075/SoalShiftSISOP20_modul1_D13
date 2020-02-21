@@ -153,5 +153,8 @@ b ) Setiap 8 jam dimulai dari jam 6.05 setiap hari kecuali hari Sabtu melakukan 
 
 c ) : )
 
+# Kendala yang dialami
+* Sintaks dan berbagai fungsi khusus yang belum diketahui
+
 
 
