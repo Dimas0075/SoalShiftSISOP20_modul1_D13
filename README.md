@@ -62,3 +62,39 @@ a ) Membuat sebuah script bash yang
 dapat menghasilkan password secara acak sebanyak 28 karakter yang terdapat huruf
 besar, huruf kecil, dan angka.
 > cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 28 | head -n 1
+* /dev/urandom Melakukan pengacakan string
+* tr -dc 'a-zA-Z0-9' Metode Caesar Cipher yaitu dengan menggunakan perintah "tr" untuk membatasi string yang akan di acak nanti atau dengan kata lain yang ada hanya yang dibatasi saja
+* fold -w 28 Menentukan panjang sting yang di acak
+* head -n 1 Menentukan banyak dari string yang di acak dengan panjang 28 tadi
+
+b ) Password acak tersebut disimpan pada file berekstensi
+.txt dengan nama berdasarkan argumen yang diinputkan dan HANYA berupa alphabet.
+> cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 28 | head -n 1 > $judul.txt
+*  " > $judul.txt" Hasil dari string yang di acak di masukkan ke dalam file yang berekstensi .txt
+
+c ) Kemudian supaya file .txt tersebut tidak mudah diketahui maka nama filenya akan di
+enkripsi dengan menggunakan konversi huruf (string manipulation) yang disesuaikan
+dengan jam
+>besar=("A" "B" "C" "D" "E" "F" "G" "H" "I" "J" "K" "L" "M" "N" "O" "P" "Q" "R" "S" "T" "U" "V" "W" "X" "Y" "Z")
+kecil=("a" "b" "c" "d" "e" "f" "g" "h" "i" "j" "k" "l" "m" "n" "o" "p" "q" "r" "s" "t" "u" "v" "w" "x" "y" "z" )
+jam=`date +"%H"`
+judul=`echo $1 | tr [A-Za-z] ["${besar[$jam]}"-ZA-"${besar[$jam-1]}""${kecil[$jam]}"-za-"${kecil[$jam-1]}"] | tr -d [:digit:] | cut -d '.' -f1`
+* Pertama saya inialisasi huruf besar dan huruf kecil karena saya mengunakan sistem array
+* jam=`date +"%H"` Mencari jam berapa saat membuat password
+* ${besar[$jam]} Menentukan batas awal huruf besar sesuai jam pembuatan file password
+* ${besar[$jam-1]} Menentukan batas akhir huruf besar sesuai jam pembuatan file password
+* ${kecil[$jam]} Menentukan batas awal huruf kecil sesuai jam pembuatan file password
+* ${kecil[$jam-1]} Menentukan batas akhir huruf kecil sesuai jam pembuatan file password
+* tr [A-Za-z] ["${besar[$jam]}"-ZA-"${besar[$jam-1]}""${kecil[$jam]}"-za-"${kecil[$jam-1]}"] Memberi batasan mengubah setiap huruf yang diberikan dan memberi acuan huruf yang di ganti sesuai jam, seperti mis A akan di ubah ke huruf besar yang ditentukan oleh perintah ${besar[$jam]} sesuai jam pembuatan file password
+* tr -d [:digit:] Membatasi jika ada angka yang di masukkan maka tidak akan diikutkan dalam pembuatan file password
+* cut -d '.' -f1 Memotong atau membatasi ekskusi jika ditemukan titik untuk mis: file yang dimasukkan bernama test.txt maka yang akan di eksekusi adalah test aj karena menemukan tanda '.'
+
+d ) jangan lupa untuk membuat dekripsinya supaya
+nama file bisa kembali.
+>besar=("A" "B" "C" "D" "E" "F" "G" "H" "I" "J" "K" "L" "M" "N" "O" "P" "Q" "R" "S" "T" "U" "V" "W" "X" "Y" "Z")
+kecil=("a" "b" "c" "d" "e" "f" "g" "h" "i" "j" "k" "l" "m" "n" "o" "p" "q" "r" "s" "t" "u" "v" "w" "x" "y" "z" )
+jam=`date +"%H"`
+judul=`echo $1 | tr ["${besar[$jam]}"-ZA-"${besar[$jam-1]}""${kecil[$jam]}"-za-"${kecil[$jam-1]}"] [A-Za-z] | tr -d [:digit:] | cut -d '.' -f1`
+cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 28 | head -n 1 > $judul.txt
+* Hampir sama dengan yang c ,tapi perbedaannya dalah Batas awal dan ke huruf dengan batas awalnya A di balik sperti berikut
+> tr ["${besar[$jam]}"-ZA-"${besar[$jam-1]}""${kecil[$jam]}"-za-"${kecil[$jam-1]}"] [A-Za-z] 
