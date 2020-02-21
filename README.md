@@ -39,6 +39,7 @@ END { for (i in sen) print sen[i],i }' /home/dimas/Downloads/Sample-Superstore.t
 * sort -n | head -10 menampilkan 10 item pertama
 
 # Kendala yang Dialami
+* Sintaks dan berbagai fungsi khusus yang belum diketahui
 
 # Soal 2
 Pada suatu siang, laptop Randolf dan Afairuzr dibajak oleh seseorang dan kehilangan
@@ -103,3 +104,54 @@ cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 28 | head -n 1 > $judul.txt
 
 # Kendala yang Dialami
 * Menghubungkan jam dengan menggunakan acii tidak dapat sehingga menemukan alternatif dengan array
+
+# Soal 3
+1 tahun telah berlalu sejak pencampakan hati Kusuma. Akankah sang pujaan hati
+kembali ke naungan Kusuma? Memang tiada maaf bagi Elen. Tapi apa daya hati yang
+sudah hancur, Kusuma masih terguncang akan sikap Elen. Melihat kesedihan Kusuma,
+kalian mencoba menghibur Kusuma dengan mengirimkan gambar kucing. [a] Maka dari
+itu, kalian mencoba membuat script untuk mendownload 28 gambar dari
+" https://loremflickr.com/320/240/cat " menggunakan command wget dan menyimpan file
+dengan nama "pdkt_kusuma_NO" (contoh: pdkt_kusuma_1, pdkt_kusuma_2,
+pdkt_kusuma_3) serta jangan lupa untuk menyimpan log messages wget kedalam
+sebuah file "wget.log" . Karena kalian gak suka ribet, kalian membuat penjadwalan untuk
+menjalankan script download gambar tersebut. Namun, script download tersebut hanya
+berjalan[b] setiap 8 jam dimulai dari jam 6.05 setiap hari kecuali hari Sabtu Karena
+gambar yang didownload dari link tersebut bersifat random, maka ada kemungkinan
+gambar yang terdownload itu identik. Supaya gambar yang identik tidak dikira Kusuma
+sebagai spam, maka diperlukan sebuah script untuk memindahkan salah satu gambar
+identik. Setelah memilah gambar yang identik, maka dihasilkan gambar yang berbeda
+antara satu dengan yang lain. Gambar yang berbeda tersebut, akan kalian kirim ke
+Kusuma supaya hatinya kembali ceria. Setelah semua gambar telah dikirim, kalian akan
+selalu menghibur Kusuma, jadi gambar yang telah terkirim tadi akan kalian simpan
+kedalam folder /kenangan dan kalian bisa mendownload gambar baru lagi. [c] Maka dari
+itu buatlah sebuah script untuk mengidentifikasi gambar yang identik dari keseluruhan
+gambar yang terdownload tadi. Bila terindikasi sebagai gambar yang identik, maka
+sisakan 1 gambar dan pindahkan sisa file identik tersebut ke dalam folder ./duplicate
+dengan format filename "duplicate_nomor" (contoh : duplicate_200, duplicate_201).
+Setelah itu lakukan pemindahan semua gambar yang tersisa kedalam folder ./kenangan
+dengan format filename "kenangan_nomor" (contoh: kenangan_252, kenangan_253).
+Setelah tidak ada gambar di current directory , maka lakukan backup seluruh log menjadi
+ekstensi ".log.bak" . Hint : Gunakan wget.log untuk membuat location.log yang isinya
+merupakan hasil dari grep "Location".
+
+# Penyelesaian
+a ) mendownload 28 gambar secara random dan menyimpan log massage 
+> #!/bin/bash
+for ((a=1;a<29;a++))
+do
+        wget "https://loremflickr.com/320/240/cat" -O pdkt_kusuma_$a -o wget.log
+done
+* wget "https://loremflickr.com/320/240/cat" download gambar pada link tersebut 
+* -O untuk mengganti nama file
+* -o wget.log hampir sama dengan -a yaitu memindahkan log yang mucul ke suatu file
+
+b ) Setiap 8 jam dimulai dari jam 6.05 setiap hari kecuali hari Sabtu melakukan perintah pada poin a
+5 6-23/8 * * 1-5,7 bash /home/dimas/Documents/no3a.sh
+* 5 6-23/8 * * 1-5,7 crontab melakukan tugas setiap 8 jam dimulai dari jam 6.05 setiap hari kecuali hari Sabtu
+* bash /home/dimas/Documents/no3a.sh melakukan tugas pada poin a
+
+c ) : )
+
+
+
