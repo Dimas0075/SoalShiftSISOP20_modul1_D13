@@ -38,6 +38,8 @@ END { for (i in sen) print sen[i],i }' /home/dimas/Downloads/Sample-Superstore.t
 * $11 == "Texas" || $11 == "Illinois" merupakan dua state dengan keuntungan paling sedikit dan disini menggunakan operator OR (||) karena menampilkan gabungan item dari dua state tersebut
 * sort -n | head -10 menampilkan 10 item pertama
 
+# Kendala yang Dialami
+
 # Soal 2
 Pada suatu siang, laptop Randolf dan Afairuzr dibajak oleh seseorang dan kehilangan
 data-data penting. Untuk mencegah kejadian yang sama terulang kembali mereka
@@ -98,3 +100,6 @@ judul=`echo $1 | tr ["${besar[$jam]}"-ZA-"${besar[$jam-1]}""${kecil[$jam]}"-za-"
 cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 28 | head -n 1 > $judul.txt
 * Hampir sama dengan yang c ,tapi perbedaannya dalah Batas awal dan ke huruf dengan batas awalnya A di balik sperti berikut
 > tr ["${besar[$jam]}"-ZA-"${besar[$jam-1]}""${kecil[$jam]}"-za-"${kecil[$jam-1]}"] [A-Za-z] 
+
+# Kendala yang Dialami
+* Menghubungkan jam dengan menggunakan acii tidak dapat sehingga menemukan alternatif dengan array
