@@ -1,5 +1,9 @@
 # SoalShiftSISOP20_modul1_D13
 
+# Anggota Kelompok
+* Herri Purba                     05111840000056
+* Nugroho Dimas Ardiyanto         05111840000075
+
 # Soal 1
 Whits adalah seorang mahasiswa teknik informatika. Dia mendapatkan tugas praktikum
 untuk membuat laporan berdasarkan data yang ada pada file “ Sample-Superstore.tsv” .
@@ -33,3 +37,28 @@ c ) Menampilkan 10 produk yang memiliki keuntungan paling sedikit dari 2 state p
 END { for (i in sen) print sen[i],i }' /home/dimas/Downloads/Sample-Superstore.tsv | sort -n | head -10
 * $11 == "Texas" || $11 == "Illinois" merupakan dua state dengan keuntungan paling sedikit dan disini menggunakan operator OR (||) karena menampilkan gabungan item dari dua state tersebut
 * sort -n | head -10 menampilkan 10 item pertama
+
+# Soal 2
+Pada suatu siang, laptop Randolf dan Afairuzr dibajak oleh seseorang dan kehilangan
+data-data penting. Untuk mencegah kejadian yang sama terulang kembali mereka
+meminta bantuan kepada Whits karena dia adalah seorang yang punya banyak ide.
+Whits memikirkan sebuah ide namun dia meminta bantuan kalian kembali agar ide
+tersebut cepat diselesaikan. Idenya adalah kalian (a) membuat sebuah script bash yang
+dapat menghasilkan password secara acak sebanyak 28 karakter yang terdapat huruf
+besar, huruf kecil, dan angka. (b) Password acak tersebut disimpan pada file berekstensi
+.txt dengan nama berdasarkan argumen yang diinputkan dan HANYA berupa alphabet.
+(c) Kemudian supaya file .txt tersebut tidak mudah diketahui maka nama filenya akan di
+enkripsi dengan menggunakan konversi huruf (string manipulation) yang disesuaikan
+dengan jam(0-23) dibuatnya file tersebut dengan program terpisah dengan (misal:
+password.txt dibuat pada jam 01.28 maka namanya berubah menjadi qbttxpse.txt
+dengan perintah ‘bash soal2_enkripsi.sh password.txt’. Karena p adalah huruf ke 16 dan
+file dibuat pada jam 1 maka 16+1=17 dan huruf ke 17 adalah q dan begitu pula
+seterusnya. Apabila melebihi z, akan kembali ke a, contoh: huruf w dengan jam 5.28,
+maka akan menjadi huruf b.) dan (d) jangan lupa untuk membuat dekripsinya supaya
+nama file bisa kembali.
+
+# Penyelesaian
+a ) Membuat sebuah script bash yang
+dapat menghasilkan password secara acak sebanyak 28 karakter yang terdapat huruf
+besar, huruf kecil, dan angka.
+> cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 28 | head -n 1
