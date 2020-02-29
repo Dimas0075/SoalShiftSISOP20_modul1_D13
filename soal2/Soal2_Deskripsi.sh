@@ -6,4 +6,4 @@ kecil=("a" "b" "c" "d" "e" "f" "g" "h" "i" "j" "k" "l" "m" "n" "o" "p" "q" "r" "
 jam=`date +"%H"`
 
 judul=`echo $1 | tr ["${besar[$jam]}"-ZA-"${besar[$jam-1]}""${kecil[$jam]}"-za-"${kecil[$jam-1]}"] [A-Za-z] | tr -d [:digit:] | cut -d '.' -f1`
-cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 28 | head -n 1 > $judul.txt
+cat $1 >> $judul.txt
