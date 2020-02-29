@@ -98,9 +98,11 @@ nama file bisa kembali.
 kecil=("a" "b" "c" "d" "e" "f" "g" "h" "i" "j" "k" "l" "m" "n" "o" "p" "q" "r" "s" "t" "u" "v" "w" "x" "y" "z" )
 jam=`date +"%H"`
 judul=`echo $1 | tr ["${besar[$jam]}"-ZA-"${besar[$jam-1]}""${kecil[$jam]}"-za-"${kecil[$jam-1]}"] [A-Za-z] | tr -d [:digit:] | cut -d '.' -f1`
-cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 28 | head -n 1 > $judul.txt
+cat $1 >> $judul.txt
 * Hampir sama dengan yang c ,tapi perbedaannya dalah Batas awal dan ke huruf dengan batas awalnya A di balik sperti berikut
 > tr ["${besar[$jam]}"-ZA-"${besar[$jam-1]}""${kecil[$jam]}"-za-"${kecil[$jam-1]}"] [A-Za-z] 
+* Karena ini bersifat mengembalikan nama filenya maka isi dari file ini nantinya adalah password yang sama dengan isi yang di acak tadi da perintahnya sebagai berikut
+> cat $1 >> $judul.txt 
 
 # Kendala yang Dialami
 * Menghubungkan jam dengan menggunakan acii tidak dapat sehingga menemukan alternatif dengan array
