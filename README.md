@@ -153,10 +153,58 @@ b ) Setiap 8 jam dimulai dari jam 6.05 setiap hari kecuali hari Sabtu melakukan 
 * 5 6-23/8 * * 1-5,7 crontab melakukan tugas setiap 8 jam dimulai dari jam 6.05 setiap hari kecuali hari Sabtu
 * bash /home/dimas/Documents/no3a.sh melakukan tugas pada poin a
 
-c ) : )
+c ) Memindahkan hasil download gambar yang sama ke folder duplicate dan memindahkan hasil download final ke folder kenangan
+```if [[ ! -d "$tempat/kenangan" ]]
+then
+        mkdir $tempat/kenangan
+fi
+if [[ ! -d "$tempat/duplicate" ]]
+then
+        mkdir $tempat/duplicate
+fi
+if [[ $filter =~ [^0-9] ]]
+then
+        filter=0
+ fi
+ pertama=`expr $filter + 1`
+ terakhir=`expr $filter + 28`
+ for ((a=pertama; a<=terakhir; a++));
+do
+        wget -O pdkt_kusuma_$a https://loremflickr.com/320/240/cat -o $tempat/wget.log
+done
+for ((a=1;a<=filter;a++))
+do
+        loc="`cat $PWD/wget.log | grep "Location:" | head -$a | tail -1 | cut -d " " -f 2`"
+        echo $loc >> location.log
+done
+temp=""
+for ((a=1;a<=filter;a++))
+do
+        loc="`cat $PWD/location.log | grep "/cache/resized/" | head -$i | tail -1 | cut -d "/" -f 4`"
+        flag=`echo -e $temp | awk -v loc=$loc 'BEGIN {flag=0} {if (loc==$0) flag=1} END {printf "%d", flag}'`
+
+        if [[ $flag == 1 ]]
+        then
+        mv $PWD/pdkt_kusuma_$a $PWD/duplicate/duplicate_$a
+                #echo "duplicate"
+        else
+                temp="$temp$loc\n"
+        mv $PWD/pdkt_kusuma_$a $PWD/kenangan/kenangan_$a
+        fi
+done
+
+cat $PWD/wget.log >> $PWD/wget.log.bak
+rm $PWD/wget.log
+```
+* for ((a=1;a<=filter;a++)) mengecek semua file yang ada pada folder
+* if [[ ! -d "$tempat/kenangan" ]] .... if [[ ! -d "$tempat/duplicate" ]] mengecek apakah folder tersebut memiliki folder kenangan dan duplicate, kalau belum ada maka akan dibuat foldernya
+* loc="`cat $PWD/wget.log | grep "Location:" | head -$a | tail -1 | cut -d " " -f 2`" menyimpan ciri khas pada gambar yang didownload
+* setelah itu pada baris berikutnya mengecek apabila memiliki ciri yang sama maka akan dipindahkan ke folder duplicate
+
 
 # Kendala yang dialami
 * Sintaks dan berbagai fungsi khusus yang belum diketahui
+* Awalnya susah menemukan ciri dari tiap gambar
 
 
 
